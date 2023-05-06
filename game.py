@@ -1,5 +1,5 @@
 import random
-(COLORS) = ['R', 'G', 'B', ' Y', 'W', 'O']
+COLORS = ['R', 'G', 'B', 'Y', 'W', 'O']
 TRIES = 10
 CODE_LENGHT = 4
 
@@ -16,7 +16,7 @@ def guess_code():
     while True:
         guess = input('Guess: ').upper().split(' ')
 
-        if len(guess) != 4:
+        if len(guess) != CODE_LENGHT:
             print(f'you must guess {CODE_LENGHT} color.')
             continue
         
@@ -50,3 +50,22 @@ def check_code(guess, real_code):
 
     return correct_pos, incorrect_pos
 
+def game():
+    print(f'Welcome to Mastermind you have {TRIES} to guess the code...')
+    print('The color valid are', *COLORS)
+    code = generate_code()
+    for attempts in range(1, TRIES + 1):
+        guess = guess_code()
+        correct_pos, incorrect_pos = check_code(guess,code)
+
+        if correct_pos == CODE_LENGHT:
+            print(f'You guessed the code in {attempts} tries!')
+            break
+
+        print(f'Correct Positions: {correct_pos} | Incorrect Position: {incorrect_pos}')
+
+    else:
+        print('You run out of tries, the code was', *code)
+
+if __name__ == '__main__':
+    game()
